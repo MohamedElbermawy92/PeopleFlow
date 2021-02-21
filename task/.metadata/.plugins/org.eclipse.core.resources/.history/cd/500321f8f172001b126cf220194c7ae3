@@ -1,0 +1,57 @@
+package backend_challenge.starter.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.*;
+
+import backend_challenge.starter.ExceptionHandler.NotFoundException;
+import backend_challenge.starter.controller.Employee;
+import backend_challenge.starter.repositry.Repo;
+
+@Service
+
+public class EmpService implements Repo{
+
+	 List<Employee> list = new ArrayList<Employee>();
+	
+	public boolean addEmployee(Employee e) {
+		Employee emp = null;
+		try{
+		 emp = findEmployee(e.getName());
+		}catch( NotFoundException notFound){
+			throw new NotFoundException(String.format("no record found for name [%d] in database.",e.getName()));
+		}
+		if(emp == null){
+			list.add(e);
+			return true;
+		}
+		return false;
+	}
+
+	public Employee findEmployee(String name) throws NotFoundException {
+		for (Employee employee : list) {
+			if(employee.getName().equals(name))
+				return employee;
+		}
+		return null;
+	}
+
+	public Employee changeStatus(String empName , String stateName) {
+		
+		States state =States.fromText(stateName);
+		for (Employee employee : list) {
+			if(employee.getName().equals(empName)){
+				employee.setState(state);
+				return employee;
+			}
+		}
+		
+		return null;
+	}
+
+	
+	
+	 
+}

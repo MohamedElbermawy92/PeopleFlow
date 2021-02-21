@@ -1,0 +1,53 @@
+package backend_challenge.starter.services;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.*;
+
+import backend_challenge.starter.controller.Employee;
+import backend_challenge.starter.repositry.Repo;
+
+@Service
+public class EmpService implements Repo{
+
+	 List<Employee> list = new ArrayList<Employee>();
+	
+	public boolean addEmployee(Employee e) {
+		Employee emp = findEmployee(e.getName());
+		if(emp == null){
+			list.add(e);
+			return true;
+		}
+		return false;
+	}
+
+	public Employee findEmployee(String name) {
+		for (Employee employee : list) {
+			if(employee.getName().equals(name))
+				return employee;
+		}
+		return null;
+	}
+
+	public boolean changeStatus(String employeeName ,String status) {
+		
+		for (Employee employee : list) {
+			if(employee.getName().equals(employeeName)){
+				employee.setStatus(status);
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	
+	public boolean equals(Employee e1 , Employee e2){
+		if(e1.getId() == e2.getId() && e1.getName().equals(e2.getName()) && e1.getAge() == e2.getAge() && e1.getStatus().equals(e2.getStatus()))
+			return true;
+		return false;
+	}
+	 
+}

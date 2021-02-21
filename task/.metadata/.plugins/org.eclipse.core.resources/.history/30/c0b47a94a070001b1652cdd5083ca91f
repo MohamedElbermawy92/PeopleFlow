@@ -1,0 +1,5 @@
+package backend_challenge.starter.repositry;
+
+public interface Repo {
+
+}

@@ -1,0 +1,8 @@
+package backend_challenge.starter.services;
+
+import org.springframework.stereotype.*;
+
+@EmpService
+public class Service {
+
+}

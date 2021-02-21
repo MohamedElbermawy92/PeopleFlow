@@ -1,0 +1,6 @@
+package backend_challenge.starter.services;
+
+public enum States {
+
+	ADDED, IN,CHECK,APPROVED,ACTIVE
+}
