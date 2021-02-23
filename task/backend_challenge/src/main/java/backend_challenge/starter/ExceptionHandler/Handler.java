@@ -11,8 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class Handler  extends ResponseEntityExceptionHandler{
 
-	@ExceptionHandler(NotFoundException.class)
-	public ResponseEntity<ErrorDetails> handleNotFounException(NotFoundException ex , WebRequest request){
+	@ExceptionHandler(APIexceptions.class)
+	public ResponseEntity<ErrorDetails> handleNotFounException(APIexceptions ex , WebRequest request){
 		
 		ErrorDetails error = new ErrorDetails(ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(error  , ex.getHttpStatus());

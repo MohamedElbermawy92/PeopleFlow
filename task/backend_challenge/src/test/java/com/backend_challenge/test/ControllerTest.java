@@ -26,6 +26,9 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 
 @RunWith(SpringRunner.class)
@@ -49,12 +52,45 @@ public class ControllerTest {
 		Employee employee1 = new Employee(1,"Mohamed",28,States.A);
 		BDDMockito.given(service.addEmployee(Mockito.any(Employee.class))).willReturn(employee1);
 		
-		// to convert object to json 
 		ObjectMapper mapper = new ObjectMapper();
 		moc.perform(post("/api/add/").contentType(MediaType.APPLICATION_JSON).
 				content(mapper.writeValueAsString(employee1)))
 		.andExpect(status().isCreated())
 		.andExpect(jsonPath("$.name", equalTo("Mohamed")));
+
+		
+	}
+	
+	@Test
+	public void whenChangeState_ThenRetuenEmployeeAfterUpdated() throws Exception{
+		
+		Employee employee1 = new Employee(1,"Mohamed",28,States.A);
+		
+		BDDMockito.given(service.changeStatus(Mockito.anyString(), Mockito.anyString())).willReturn(employee1);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		moc.perform(put("/api/change/").contentType(MediaType.APPLICATION_JSON).
+				content(mapper.writeValueAsString(employee1)))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$.name", equalTo("Mohamed")));
+
+		
+	}
+	
+	@Test
+	public void whenGetAllEmployeed_ThenRetuenEmployeesList() throws Exception{
+		
+		Employee employee1 = new Employee(1,"Mohamed",28,States.A);
+		Employee employee2 = new Employee(2,"Ahmed",30,States.A);
+		
+		List<Employee> list = Arrays.asList(employee1,employee2);
+
+		BDDMockito.given(service.getAllEmployee()).willReturn(list);
+		
+		 moc.perform(get("/api/getAll/").contentType(MediaType.APPLICATION_JSON))		
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$", hasSize(2)))
+		.andExpect(jsonPath("$[0].name", equalTo("Mohamed")));
 
 		
 	}

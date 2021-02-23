@@ -2,7 +2,7 @@ package backend_challenge.starter.ExceptionHandler;
 
 import org.springframework.http.HttpStatus;
 
-public class NotFoundException extends RuntimeException {
+public class NotFoundException extends APIexceptions {
 
 	private static final long serialVersionUID = 1L;
 

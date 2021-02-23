@@ -1,0 +1,4 @@
+FROM openjdk:8
+ADD target/peopleflowtask.jar peopleflowtask.jar
+EXPOSE 8081
+ENTRYPOINT ["java","-jar","peopleflowtask.jar"]

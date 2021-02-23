@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import backend_challenge.starter.ExceptionHandler.NotFoundException;
+
 @JsonDeserialize(using = StatesDeserializer.class)
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum States {
@@ -27,7 +29,7 @@ public enum States {
                 return r;
             }
         }
-        throw new IllegalArgumentException();
+        throw new NotFoundException("This state not definded");
     }
     
     @Override

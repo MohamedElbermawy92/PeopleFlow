@@ -1,0 +1,3 @@
+FROM openjdk:8
+ADD target/PeopleFlowTasl.jar PeopleFlowTasl.jar
+EXPOSE 8080
