@@ -41,7 +41,7 @@ public class EmpService implements Repo{
 		return null;
 	}
 
-	public Employee changeStatus(String empName , String stateName) {
+	public boolean changeStatus(String empName , String stateName) {
 		
 		States state =States.fromText(stateName);
 		Employee employee = findEmployee(empName);
@@ -50,7 +50,7 @@ public class EmpService implements Repo{
 			
 		employee.setState(state);
 		
-		return employee;
+		return true;
 	}
 
 	public  List<Employee> getAllEmployee() {

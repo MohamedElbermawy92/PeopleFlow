@@ -1,0 +1,5 @@
+package backend_challenge.starter.kafka;
+
+public class Message {
+
+}

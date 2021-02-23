@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiOperation;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import backend_challenge.starter.kafka.KafkaSender;
 import backend_challenge.starter.services.EmpService;
 
 @RestController
@@ -26,6 +27,10 @@ public class Controller {
 
 	@Autowired
 	EmpService ser;
+	
+	@Autowired
+	KafkaSender kafkaSender;
+	
 	
 	@ApiOperation("Add Employee")
 	@PostMapping(value={"/add"})
@@ -37,12 +42,14 @@ public class Controller {
 
 	@ApiOperation("Change State")
 	@PutMapping(value={"/change"})
-	public ResponseEntity<Employee> changeState(@RequestBody ObjectNode json){
+	public ResponseEntity<String> changeState(@RequestBody ObjectNode json){
 	
+		
 		String empName =  json.get("name").asText();
 		String state =  json.get("state").asText();
-		Employee e = ser.changeStatus(empName,state);
-		return new ResponseEntity<>(e,HttpStatus.OK);
+		kafkaSender.send(empName,state);
+		//Employee e = ser.changeStatus(empName,state);
+		return new ResponseEntity<>("Request added to queue successfully",HttpStatus.OK);
 	}
 	
 	@ApiOperation("get all employees")

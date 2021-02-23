@@ -12,6 +12,6 @@ public interface Repo {
 
 	Employee addEmployee(Employee e);
 	Employee findEmployee(String name);
-	Employee changeStatus( String empName , String state);
+	boolean changeStatus( String empName , String state);
 	List<Employee> getAllEmployee();
 }

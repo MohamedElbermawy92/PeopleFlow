@@ -1,0 +1,19 @@
+package backend_challenge.starter.kafka;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+public class KafkaSender {
+
+	@Autowired
+	private KafkaTemplate<String, Message> kafkaTemplate;
+	
+	String kafkaTopic = "Test";
+	
+	public void send(String employeeName , String state) {
+	    
+	    kafkaTemplate.send(kafkaTopic, new Message(employeeName, state));
+	}
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ControllerTest" project="backend_challenge" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="com.backend_challenge.test.ControllerTest" time="60.625">
+    <testcase name="whenGetAllEmployeed_ThenRetuenEmployeesList" classname="com.backend_challenge.test.ControllerTest" time="0.399"/>
+    <testcase name="whenAddEmp_ThenCreateEmployee" classname="com.backend_challenge.test.ControllerTest" time="0.132"/>
+    <testcase name="whenChangeState_ThenRetuenStatusOk" classname="com.backend_challenge.test.ControllerTest" time="60.094"/>
+  </testsuite>
+</testrun>

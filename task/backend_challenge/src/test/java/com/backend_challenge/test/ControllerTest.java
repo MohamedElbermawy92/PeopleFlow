@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -62,17 +63,16 @@ public class ControllerTest {
 	}
 	
 	@Test
-	public void whenChangeState_ThenRetuenEmployeeAfterUpdated() throws Exception{
+	public void whenChangeState_ThenRetuenStatusOk() throws Exception{
 		
 		Employee employee1 = new Employee(1,"Mohamed",28,States.A);
 		
-		BDDMockito.given(service.changeStatus(Mockito.anyString(), Mockito.anyString())).willReturn(employee1);
+		BDDMockito.given(service.changeStatus(Mockito.anyString(), Mockito.anyString())).willReturn(true);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		moc.perform(put("/api/change/").contentType(MediaType.APPLICATION_JSON).
 				content(mapper.writeValueAsString(employee1)))
-		.andExpect(status().isOk())
-		.andExpect(jsonPath("$.name", equalTo("Mohamed")));
+		.andExpect(status().isOk());
 
 		
 	}
