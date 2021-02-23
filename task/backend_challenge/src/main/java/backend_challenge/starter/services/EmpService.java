@@ -10,18 +10,17 @@ import backend_challenge.starter.ExceptionHandler.ConflictException;
 import backend_challenge.starter.ExceptionHandler.NotFoundException;
 import backend_challenge.starter.controller.Employee;
 import backend_challenge.starter.repositry.Repo;
-import io.swagger.annotations.Api;
 
 @Service
 public class EmpService implements Repo{
 
-	@Autowired
-	Repo repo;
+
+
 	 List<Employee> list = new ArrayList<Employee>();
 	
 	public Employee addEmployee(Employee e) {
 		
-		Employee emp = repo.findEmployee(e.getName());
+		Employee emp = findEmployee(e.getName());
 		
 		if(emp == null){
 			e.setState(States.A);
@@ -45,7 +44,7 @@ public class EmpService implements Repo{
 	public Employee changeStatus(String empName , String stateName) {
 		
 		States state =States.fromText(stateName);
-		Employee employee = repo.findEmployee(empName);
+		Employee employee = findEmployee(empName);
 		if(employee == null)
 			throw new NotFoundException("No data found");
 			

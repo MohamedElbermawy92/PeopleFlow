@@ -25,15 +25,14 @@ import backend_challenge.starter.services.EmpService;
 public class Controller {
 
 	@Autowired
-	EmpService service;
+	EmpService ser;
 	
 	@ApiOperation("Add Employee")
 	@PostMapping(value={"/add"})
 	public ResponseEntity<Employee> addEmp(@RequestBody Employee emp){
 	
-		Employee r = service.addEmployee(emp);
+		Employee r = ser.addEmployee(emp);
 		return new ResponseEntity<>(r,HttpStatus.CREATED);
-		//return (r)?new ResponseEntity<>("Employee added successfully",HttpStatus.CREATED):new ResponseEntity<>("Failed to create employee",HttpStatus.BAD_REQUEST);
 	}
 
 	@ApiOperation("Change State")
@@ -42,7 +41,7 @@ public class Controller {
 	
 		String empName =  json.get("name").asText();
 		String state =  json.get("state").asText();
-		Employee e = service.changeStatus(empName,state);
+		Employee e = ser.changeStatus(empName,state);
 		return new ResponseEntity<>(e,HttpStatus.OK);
 	}
 	
@@ -50,6 +49,6 @@ public class Controller {
 	@GetMapping(value={"/getAll"})
 	public ResponseEntity<List<Employee>> getAllEmployee(){
 	
-		return new ResponseEntity<>(service.getAllEmployee(),HttpStatus.OK);
+		return new ResponseEntity<>(ser.getAllEmployee(),HttpStatus.OK);
 	}
 }
